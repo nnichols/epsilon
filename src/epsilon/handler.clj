@@ -1,7 +1,7 @@
 (ns epsilon.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.defaults :refer [wrap-defaults secure-site-defaults]]))
 
 (defn bodiless-response
   "Creates a boddiless ring response with status `code`"
@@ -20,4 +20,4 @@
 
 (def app
   (wrap-defaults app-routes
-                 site-defaults))
+                 secure-site-defaults))
