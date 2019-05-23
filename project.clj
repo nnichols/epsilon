@@ -1,5 +1,5 @@
 (defproject epsilon "0.0.0"
-  :description "epsilon: a blogging platform of negligible size"
+  :description "epsilon: an inventory platform of negligible size"
   :url "https://github.com/nnichols/epsilon"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.10.0"]
