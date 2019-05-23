@@ -9,14 +9,17 @@
 (defn local-api-test
   "Helper fn to wrap `mock/request` to direct test requests to use https"
   [request-type route & [opts]]
-  (mock/request request-type (str local-url-stem local-port route) opts))
+  (app (mock/request request-type (str local-url-stem local-port route) opts)))
 
-(deftest test-app
-  (testing "main route"
-    (let [response (app (local-api-test :get "/"))]
+(deftest test-routes
+  (testing "Main route"
+    (let [response (local-api-test :get "/")]
       (is (= (:status response) 200))
       (is (= (:body response) "Hello World"))))
 
-  (testing "not-found route"
-    (let [response (app (local-api-test :get "/invalid"))]
+  (testing "SSL/HTTPS redirect"
+    (is (= 301 (:status (app (mock/request :get "/"))))))
+
+  (testing "page not-found route"
+    (let [response (local-api-test :get "/invalid")]
       (is (= (:status response) 404)))))
